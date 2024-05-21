@@ -1,0 +1,27 @@
+header:
+  version: 8
+
+repos:
+
+  meta-freescale:
+    url: https://github.com/Freescale/meta-freescale
+    refspec: 2902c1c5a26b9ac2c7a1957698d92ceea2c5b0df
+
+  meta-freescale-3rdparty:
+    url: https://github.com/Freescale/meta-freescale-3rdparty
+    refspec: 6f9430d11d133d38e356776508377def72163f99
+
+  meta-raspberrypi:
+    url: https://github.com/agherzan/meta-raspberrypi
+    refspec: b6a1645a97d2de7f08f7d37c7a8f2991ab45032d
+
+  meta-openembedded:
+    url: http://git.openembedded.org/meta-openembedded
+    refspec: e4f8e83541229888e63113debb21c3fde3a0e7d8
+    layers:
+      meta-oe:
+      meta-perl:
+      meta-python:
+      meta-networking:
+      meta-webserver:
+      meta-filesystems:

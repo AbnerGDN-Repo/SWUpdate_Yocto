@@ -1,0 +1,29 @@
+header:
+  version: 8
+
+repos:
+
+  meta-swupdate:
+    url: https://github.com/sbabic/meta-swupdate
+    refspec: kirkstone
+    #refspec: ea21eccbd117da250d04430155ed61b39042835a
+
+  meta-swupdate-boards:
+    url: https://github.com/sbabic/meta-swupdate-boards
+    refspec: kirkstone
+    #refspec: 4189ecc0cfc26ffba5975159f33ea48807a0408c
+
+local_conf_header:
+  swu-specific: |
+    IMAGE_FSTYPES:append = " ext4.gz"
+    IMAGE_INSTALL:append = " \
+        libubootenv-bin \
+        swupdate \
+        swupdate-progress \
+        swupdate-tools-ipc \
+        swupdate-www \
+        kernel-image \
+        kernel-modules \
+    "
+    
+###    PREFERRED_VERSION_swupdate = "2021.11+git%"    
