@@ -1,0 +1,90 @@
+header:
+  version: 8
+ # includes:
+ #   - kas-layers.yml
+defaults:
+  repos:
+    refspec: kirkstone
+
+#env:
+#  BB_NUMBER_THREADS: "8"
+#  PARALLEL_MAKE: "-j8"
+
+machine: raspberrypi4 #-64
+distro: poky
+target:
+  - core-image-base
+  #- rpi-test-image
+
+local_conf_header:
+    rpi4: |
+      PACKAGE_CLASSES = " package_deb"
+      VC4DTBO = "vc4-kms-v3d"
+      MACHINE_FEATURES:append = " wifi keyboard"
+      MACHINE_FEATURES:append = " vc4graphics screen"
+      DISTRO_FEATURES:append = " rpi-gpio"
+      IMAGE_FEATURES:append = " hwcodecs"
+  #----------------------------------------------------------------#
+    systemd: |
+      VIRTUAL-RUNTIME_init_manager = "systemd"
+      DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
+      VIRTUAL-RUNTIME_initscripts = ""
+      DISTRO_FEATURES:append = " systemd"
+  
+    bitbake: |
+      CONF_VERSION = "2"
+      INHERIT += " buildhistory rm_work"
+      BUILDHISTORY_COMMIT = "1"
+      TMPDIR = "${TOPDIR}/tmp-recipes/rpi4"
+      RM_OLD_IMAGE = "1"
+
+#----------------------------------------------------------------#
+repos:
+  poky:
+    url: https://git.yoctoproject.org/git/poky
+    path: layers/poky
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    path: layers/meta-openembedded
+    layers:
+      meta-oe:
+      meta-filesystems:
+      meta-python:
+      meta-perl:
+      meta-multimedia:
+      meta-networking:
+      meta-webserver:
+      meta-xfce:
+      meta-gnome:
+  meta-raspberrypi:
+    url: https://git.yoctoproject.org/meta-raspberrypi
+    path: layers/meta-raspberrypi
+    
+  meta-freescale:
+    url: https://github.com/Freescale/meta-freescale
+    path: layers/meta-freescale
+    #refspec: 2902c1c5a26b9ac2c7a1957698d92ceea2c5b0df
+
+  meta-freescale-3rdparty:
+    url: https://github.com/Freescale/meta-freescale-3rdparty
+    path: layers/meta-freescale-3rdparty
+    #refspec: 6f9430d11d133d38e356776508377def72163f99
+
+#  meta-raspberrypi:
+#    url: https://github.com/agherzan/meta-raspberrypi
+#    refspec: b6a1645a97d2de7f08f7d37c7a8f2991ab45032d
+
+  #meta-openembedded:
+  #  url: http://git.openembedded.org/meta-openembedded
+  #  refspec: e4f8e83541229888e63113debb21c3fde3a0e7d8
+  #  layers:
+  #    meta-oe:
+  #    meta-perl:
+  #    meta-python:
+  #    meta-networking:
+  #    meta-webserver:
+  #    meta-filesystems:
